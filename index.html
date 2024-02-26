@@ -1,36 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fetch Data and View in Console</title>
+    <title>COVID-19 Data</title>
 </head>
 <body>
+    <h1>COVID-19 Data</h1>
+    <div id="data"></div>
+
+  git 
     <script>
-        // Function to fetch data from the provided URL and view it in the console
-        async function fetchDataAndViewInConsole() {
-            try {
-                // Make a GET request to the URL using the CORS proxy server
-                const response = await fetch('https://cors-anywhere.herokuapp.com/https://disease.sh/v3/covid-19/countries');
+        // Fetch data from the API without a proxy server
+        axios.get('https://disease.sh/v3/covid-19/countries')
+            .then(response => {
+                // Store the data in a variable
+                const Covide19data = response.data;
 
-                // If the response is not OK, throw an error
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
+                // Create a table to display the data
+                const table = document.createElement('table');
+                table.innerHTML = `
+                    <tr>
+                        <th>Country</th>
+                        <th>Cases</th>
+                        <th>Deaths</th>
+                        <th>Recovered</th>
+                    </tr>
+                `;
 
-                // Parse the JSON response
-                const data = await response.json();
+                // Loop through the data and create a row for each country
+                Covide19data.forEach(country => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${country.country}</td>
+                        <td>${country.cases}</td>
+                        <td>${country.deaths}</td>
+                        <td>${country.recovered}</td>
+                    `;
+                    table.appendChild(row);
+                });
 
-                // Log the data to the console
-                console.log(data);
-            } catch (error) {
-                // Log any errors to the console
+                // Add the table to the page
+                document.getElementById('data').appendChild(table);
+            })
+            .catch(error => {
                 console.error('Error fetching data:', error);
-            }
-        }
-
-        // Call the fetchDataAndViewInConsole function
-        fetchDataAndViewInConsole();
+            });
     </script>
 </body>
 </html>
+

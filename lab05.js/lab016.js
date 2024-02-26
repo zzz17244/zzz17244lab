@@ -1,0 +1,13 @@
+aNum    =  [1,2,3,4,5,6]
+aFilter =  aNum.filter( x => x > 3)
+aMap    =  aFilter.map( x=> x*2)
+console.log(aMap)
+console.log()
+aMap1   =  aNum.filter( x => x > 3).map( x=> x*2)
+console.log(aMap1)
+console.log()
+aMap2   = [1,2,3,4,5,6].filter( x => x > 3).map( x=> x*2)
+console.log(aMap2)
+aMap3   = [1,2,3,4,5,6].filter( x => x > 3).map( x=> x*2).reduce((total,x)=>total+x,0)
+console.log()
+console.log(aMap3)

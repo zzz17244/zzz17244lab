@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>COVID-19 Data</title>
+</head>
+<body>
+  <h1>COVID-19 Data</h1>
+  <div id="output"></div>
+
+  <script>
+    // Fetch the JSON data from the API
+    fetch('https://disease.sh/v3/covid-19/countries')
+      .then(response => response.json())
+      .then(data => {
+        // Store the JSON data in a variable named allCovidData
+        const allCovidData = data;
+        console.log(allCovidData); // Optional: Display the data in the console
+        
+        // Print out the allCovidData variable
+        document.getElementById('output').innerHTML = JSON.stringify(allCovidData, null, 2);
+        // You can now use the allCovidData variable to access the fetched data
+      })
+      .catch(error => console.error('Error fetching data:', error));
+  </script>
+</body>
+</html>

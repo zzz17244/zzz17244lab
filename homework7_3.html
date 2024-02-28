@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Download File</title>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+
+  <button onclick="downloadFile()">Download File</button>
+
+  <script>
+    async function downloadFile() {
+      const url = 'https://dev.codekit.co/devcamp-api/friends.txt';
+      const filename = 'homework1-4.json';
+
+      try {
+        const response = await axios.get(url, {
+          responseType: 'blob', // This is important for downloading binary files
+        });
+
+        const blob = new Blob([response.data], { type: response.headers['content-type'] });
+
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = filename;
+
+        document.body.appendChild(link);
+        link.click();
+
+        document.body.removeChild(link);
+      } catch (error) {
+        console.error('Error downloading file:', error);
+      }
+    }
+  </script>
+
+</body>
+</html>

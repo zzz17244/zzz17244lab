@@ -15,7 +15,7 @@ const dataArray = JSON.parse(jsonData);
 // ,friends: x.friends,balace : x.balance  }))
 
 const newArray  = dataArray.map(x=> ({ name : x.name , gender : x.gender,company:x.company,email:x.email
-    ,friends: x.friends,balance :  parseFloat( x.balance.substring(1).replace(',', ''))*0.09  }    )     )
+    ,friends: x.friends,balance :  parseFloat( x.balance.substring(1).replace(',', ''))*(-9)  }    )     )
 
 console.log(newArray)
 // const newArray2 = newArray.map

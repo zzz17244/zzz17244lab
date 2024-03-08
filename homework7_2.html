@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>COVID-19 Data</title>
+</head>
+<body>
+    <h1>COVID-19 Data</h1>
+    <div id="data"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        // Fetch data from the API without a proxy server
+        axios.get('https://disease.sh/v3/covid-19/countries')
+            .then(response => {
+                // Store the data in a variable
+                const Covide19data = response.data;
+
+                // Create a table to display the data
+                const table = document.createElement('table');
+                table.innerHTML = `
+                    <tr>
+                        <th>Country</th>
+                        <th>Cases</th>
+                        <th>Deaths</th>
+                        <th>Recovered</th>
+                    </tr>
+                `;
+
+                // Loop through the data and create a row for each country
+                Covide19data.forEach(country => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${country.country}</td>
+                        <td>${country.cases}</td>
+                        <td>${country.deaths}</td>
+                        <td>${country.recovered}</td>
+                    `;
+                    table.appendChild(row);
+                });
+
+                // Add the table to the page
+                document.getElementById('data').appendChild(table);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    </script>
+</body>
+</html>
+
+
